@@ -47,4 +47,12 @@ public class DAOFactory {
         return new RegistrationDAO(this);
     }
 
+    public TrainingSessionsDAO getTrainingSessionsDAO() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public AttendeesDAO getAttendeesDAO() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
 }
