@@ -72,9 +72,7 @@ public class TrainingSessionsServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
+    /** Returns a short description of the servlet.
      * @return a String containing servlet description
      */
     @Override

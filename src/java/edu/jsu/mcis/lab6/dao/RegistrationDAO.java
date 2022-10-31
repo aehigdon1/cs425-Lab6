@@ -9,29 +9,25 @@ public class RegistrationDAO {
     
     private final DAOFactory daoFactory;
     
-    private final String QUERY_SELECT_BY_ID = "SELECT * FROM "
-            + "((registration JOIN attendee ON registration.attendeeid = attendee.id) "
-            + "JOIN `session` ON registration.sessionid = `session`.id) "
-            + "WHERE `session`.id = ? AND attendee.id = ?";
+    private final String QUERY_SELECT_BY_ID = "SELECT * FROM registration";
+    
+    
     
     RegistrationDAO(DAOFactory dao) {
         this.daoFactory = dao;
     }
     
-    public String find(int sessionid, int attendeeid) {
-
-        JSONObject json = new JSONObject();
-        json.put("success", false);
-
+    public String getRegistrationListAsHTML(){
+        StringBuilder s = new StringBuilder();    
+    
         Connection conn = daoFactory.getConnection();
         PreparedStatement ps = null;
         ResultSet rs = null;
+        
 
         try {
 
             ps = conn.prepareStatement(QUERY_SELECT_BY_ID);
-            ps.setInt(1, sessionid);
-            ps.setInt(2, attendeeid);
             
             boolean hasresults = ps.execute();
 
@@ -39,19 +35,19 @@ public class RegistrationDAO {
 
                 rs = ps.getResultSet();
                 
-                if (rs.next()) {
+                s.append("<select>");
+                
+                while (rs.next()) {
+                    int attendeeid = rs.getInt("attendeeid");
+                    int sessionid = rs.getInt("sessionid");
                     
-                    json.put("success", hasresults);
-                    
-                    json.put("attendeeid", rs.getInt("attendeeid"));
-                    json.put("sessionid", rs.getInt("sessionid"));
-                    json.put("firstname", rs.getString("firstname"));
-                    json.put("lastname", rs.getString("lastname"));
-                    json.put("displayname", rs.getString("displayname"));
-                    json.put("session", rs.getString("description"));
-                                        
+                    s.append("<option value=\"").append(attendeeid).append("\">");
+                    s.append(sessionid);
+                    s.append("</option>");            
                 }
-
+                
+                s.append("</select>");
+                
             }
 
         }
@@ -84,10 +80,10 @@ public class RegistrationDAO {
 
         }
 
-        return JSONValue.toJSONString(json);
+        return s.toString();
 
     }
-
+    
     public boolean create(int sessionid, int attendeeid) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
@@ -97,6 +93,10 @@ public class RegistrationDAO {
     }
 
     public boolean delete(int sessionid, int attendeeid) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public boolean find(int sessionid, int attendeeid) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

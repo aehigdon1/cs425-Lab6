@@ -2,6 +2,7 @@ package edu.jsu.mcis.lab6;
 
 import edu.jsu.mcis.lab6.dao.AttendeesDAO;
 import edu.jsu.mcis.lab6.dao.DAOFactory;
+import java.awt.Button;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
@@ -143,18 +144,16 @@ public class AttendeesServlet extends HttpServlet {
         catch (Exception e) {
             e.printStackTrace();
         }
-
+        
+        
+        
     }
     
     
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
+    
 }
